@@ -1,12 +1,13 @@
-import { TaskForm } from "./TaskForm";
+import Container from 'react-bootstrap/Container';
+import { AppBar } from './AppBar';
 import { TaskList } from "./TaskList";
 
 export const App = () => {
 
   return (
-    <>
-      <TaskForm/>
+    <Container>
+      <AppBar/>
       <TaskList/>
-    </>
+    </Container>
   );
 };

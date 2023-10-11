@@ -1,28 +1,40 @@
 import { useState } from 'react';
-import Container from 'react-bootstrap/Container';
+// import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Stack from 'react-bootstrap/Stack';
+import { useDispatch } from 'react-redux';
+import { addTask } from 'redux/tasksSlice';
 
 export const TaskForm = () => {
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
+    const dispatch = useDispatch();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const handleSubmit = (event) => {
+        event.preventDefault();
+
         const form = event.currentTarget;
+        const title = form.elements.title.value;
+        const description = form.elements.description.value;
+
         if (form.checkValidity() === false) {
-            event.preventDefault();
             event.stopPropagation();
-        }
+        } 
 
         setValidated(true);
+        if (validated) {
+            dispatch(addTask(title, description));
+            handleClose();
+        } 
     };
 
     return (
-        <Container>
+        <>
             <Button variant="primary" onClick={handleShow}>
                 Додати завдання
             </Button>
@@ -33,23 +45,38 @@ export const TaskForm = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
+
                         <Form.Group className="mb-3" controlId="title">
                             <Form.Label>Назва</Form.Label>
-                            <Form.Control required type="text" autoFocus />
-                            <Form.Control.Feedback type="invalid">
-                                Будь ласка введіть назву завдання.
+                            <Form.Control
+                                required
+                                type="text"
+                                autoFocus
+                                name="title"
+                                isInvalid={validated}
+                            />
+                            <Form.Control.Feedback type="invalid" >
+                                Будь ласка, введіть назву завдання.
                             </Form.Control.Feedback>
+
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="description">
                             <Form.Label>Опис</Form.Label>
-                            <Form.Control as="textarea" rows={2} />
+                            <Form.Control as="textarea" rows={2} name='description'/>
                         </Form.Group>
-                        <Button type="submit" >
-                        Зберігти
-                        </Button>
+                        <Stack direction="horizontal" gap={2}>
+                            <Button type="submit">Зберігти</Button>
+                            <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={handleClose}>
+                                Скасувати
+                            </Button>
+                        </Stack>
                     </Form>
                 </Modal.Body>
             </Modal>
-        </Container>
+
+        </>
     );
 };
