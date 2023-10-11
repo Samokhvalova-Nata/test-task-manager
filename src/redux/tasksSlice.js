@@ -2,11 +2,11 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 const initialState = {
     taskList: [
-        { id: 0, title: 'Task1', description: 'Learn HTML and CSS', completed: true },
-        { id: 1, title: 'Task2', description: 'Get good at JavaScript', completed: true },
-        { id: 2, title: 'Task3', description: 'Master React', completed: false },
-        { id: 3, title: 'Task4', description: 'Discover Redux', completed: false },
-        { id: 4, title: 'Task5', description: 'Build amazing apps', completed: false }
+        { id: 0, title: 'Завдання 1', description: 'Вдосконалити HTML and CSS', completed: true },
+        { id: 1, title: 'Завдання 2', description: 'Підвищити рівень у JavaScript', completed: true },
+        { id: 2, title: 'Завдання 3', description: 'Зануритись у React', completed: false },
+        { id: 3, title: 'Завдання 4', description: 'Вивчити Redux', completed: false },
+        { id: 4, title: 'Завдання 5', description: 'Створити чудовий застосунок', completed: false }
     ],
 };
 

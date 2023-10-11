@@ -1,13 +1,13 @@
-import Container from 'react-bootstrap/Container';
+import { Toaster } from "react-hot-toast";
 import { AppBar } from './AppBar';
 import { TaskList } from "./TaskList";
 
 export const App = () => {
-
   return (
-    <Container>
+    <>
       <AppBar/>
-      <TaskList/>
-    </Container>
+      <TaskList />
+      <Toaster position="top-right" reverseOrder={false} />
+    </>
   );
 };

@@ -1,35 +1,20 @@
-import { useDispatch, useSelector } from "react-redux";
-import Button from 'react-bootstrap/Button';
-import { selectStatusFilter } from "redux/selectors";
+import Form from 'react-bootstrap/Form';
+import { useDispatch } from "react-redux";
 import { setStatusFilter } from 'redux/filterSlice';
-import { statusFilters } from 'redux/constants';
+
 
 export const StatusFilter = () => {
     const dispatch = useDispatch();
-    const filter = useSelector(selectStatusFilter);
 
     const handleFilterChange = filter => dispatch(setStatusFilter(filter));
 
     return (
-        <div >
-        <Button
-            selected={filter === statusFilters.all}
-            onClick={() => handleFilterChange(statusFilters.all)}
-        >
-            All
-        </Button>
-        <Button
-            selected={filter === statusFilters.active}
-            onClick={() => handleFilterChange(statusFilters.active)}
-        >
-            Active
-        </Button>
-        <Button
-            selected={filter === statusFilters.completed}
-            onClick={() => handleFilterChange(statusFilters.completed)}
-        >
-            Completed
-        </Button>
-        </div>
+      <Form.Select className="ms-auto w-25"
+          aria-label="Complete status"
+          onChange={e => handleFilterChange(e.target.value)}>
+        <option value="all">Всі</option>
+        <option value="active">Активні</option>
+        <option value="completed">Виконані</option>
+      </Form.Select>
     );
 };

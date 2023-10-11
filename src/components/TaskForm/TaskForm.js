@@ -1,11 +1,12 @@
 import { useState } from 'react';
-// import Container from 'react-bootstrap/Container';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-hot-toast';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Stack from 'react-bootstrap/Stack';
-import { useDispatch } from 'react-redux';
 import { addTask } from 'redux/tasksSlice';
+
 
 export const TaskForm = () => {
     const [show, setShow] = useState(false);
@@ -27,42 +28,42 @@ export const TaskForm = () => {
         } 
 
         setValidated(true);
-        if (validated) {
+        if (validated && title !== '') {
             dispatch(addTask(title, description));
+            toast.success(`Завдання ${title} додано`);
             handleClose();
         } 
     };
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Додати завдання
-            </Button>
+            <Button variant="primary" onClick={handleShow}>Додати завдання</Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Нове завдання</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
-
                         <Form.Group className="mb-3" controlId="title">
                             <Form.Label>Назва</Form.Label>
                             <Form.Control
                                 required
                                 type="text"
                                 autoFocus
-                                name="title"
-                                isInvalid={validated}
-                            />
-                            <Form.Control.Feedback type="invalid" >
-                                Будь ласка, введіть назву завдання.
+                                name="title"/>
+                            <Form.Control.Feedback type="invalid">
+                                Будь ласка, введіть назву завдання
                             </Form.Control.Feedback>
-
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="description">
                             <Form.Label>Опис</Form.Label>
-                            <Form.Control as="textarea" rows={2} name='description'/>
+                            <Form.Control
+                                as="textarea"
+                                rows={2}
+                                name='description'/>
                         </Form.Group>
                         <Stack direction="horizontal" gap={2}>
                             <Button type="submit">Зберігти</Button>
@@ -76,7 +77,6 @@ export const TaskForm = () => {
                     </Form>
                 </Modal.Body>
             </Modal>
-
         </>
     );
 };

@@ -1,12 +1,14 @@
+import Stack from 'react-bootstrap/Stack';
 import { StatusFilter } from "components/StatusFilter";
 import { TaskForm } from "components/TaskForm";
 
 export const AppBar = () => {
     return (
-        <header >
-            <TaskForm/>
-            <h2 >Filter by status</h2>
+        <Stack as="header"
+            direction="horizontal"
+            className="col-md-4 mx-auto m-3">
+            <TaskForm />
             <StatusFilter />
-        </header>
+        </Stack>
     );
 };
